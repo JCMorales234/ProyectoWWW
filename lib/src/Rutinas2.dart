@@ -1,17 +1,19 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:salufit/src/sign_up.dart';
+import 'package:salufit/src/imagenesrutina1.dart';
+import 'package:salufit/src/imagenesrutina2.dart';
 import 'package:salufit/src/menu.dart';
+import 'package:salufit/src/login.dart';
 
-class Mylogin extends StatefulWidget {
-  const Mylogin({super.key});
+class Rutinas2 extends StatefulWidget {
+  const Rutinas2({super.key});
 
   @override
-  State<Mylogin> createState() => _MyloginState();
+  State<Rutinas2> createState() => _Rutinas2State();
 }
 
-class _MyloginState extends State<Mylogin> {
+class _Rutinas2State extends State<Rutinas2> {
   @override
 
   Widget build(BuildContext context) {
@@ -29,50 +31,31 @@ class _MyloginState extends State<Mylogin> {
                 backgroundImage: AssetImage('images/Logoapp.jpg'),
               ),
               Text(
-                'Usuario',
+                'Hola, segun nuestros calculos de tu indice de masa muscular te recomendamos los siguientes ejercicios',
                 style: TextStyle(
                     fontFamily: 'Dangrek-Regular',
-                    fontSize: 35.0,
+                    fontSize: 18.0,
                     color: Color.fromARGB(221, 0, 0, 0)),
-              ),
-              TextField(
-                  enableInteractiveSelection: false,
-                  autofocus: true,
-                  decoration: InputDecoration(
-                    hintText: 'Nombre de Usuario',
-                    labelText: 'Nombre de usuario',
-                    suffixIcon: Icon(Icons.account_circle),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                  ),
-                  // aqui se recibe el valor en el campo de texto nombre de usuario
-                  onSubmitted:(valor) {
-                    valor;
-                  }),
-              Text(
-                'Contraseña',
-                style: TextStyle(
-                    fontFamily: 'Dangrek-Regular',
-                    fontSize: 35.0,
-                    color: Color.fromARGB(221, 0, 0, 0)),
-              ),
-              TextField(
-                enableInteractiveSelection: false,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Contraseña del usuario',
-                  labelText: 'Contraseña del usuario',
-                  suffixIcon: Icon(Icons.lock),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                ),
-                // aqui se recibe el valor en el campo de texto contrasena
-                onSubmitted:(valor) {
-                    
-                },
               ),
               Divider(
                 height: 15.0,
+              ),
+             Text(
+                '-Flexiones 10 repeticiones \n -Sentadillas 30 repeticiones \n -Estiramiento de abdominales 30 segundos \n -Escaladores 10 repeticiones  ',
+                style: TextStyle(
+                    fontFamily: 'Dangrek-Regular',
+                    fontSize: 18.0,
+                    color: Color.fromARGB(221, 0, 0, 0)),
+              ),
+                   Divider(
+                height: 15.0,
+              ),
+             Text(
+                'Recomendaciones \n -Es recomendable hacer entre 3 a 4 sets de repeticiones de toda la rutina \n - Se recomienda tomar intervalos de 30 segundos a 1 minuto de descanso \n -Todos la rutina de ejercicios se puede realizar en casa \n -En caso de no poder realizar algun ejercicio completo intente realizar el ejercicios al fallo \n-Si tienes dudas sobre como realizar algun ejercicio pulsa el siguiente boton',
+                style: TextStyle(
+                    fontFamily: 'Dangrek-Regular',
+                    fontSize: 18.0,
+                    color: Color.fromARGB(221, 0, 0, 0)),
               ),
               SizedBox(
                 child: TextButton(
@@ -81,32 +64,31 @@ class _MyloginState extends State<Mylogin> {
                     onPressed: () {
 
                       final route = MaterialPageRoute(
-                        builder: (context) => Menu(),
+                        builder: (context) => Imagenes2(),
                       );
                       Navigator.push(context, route);
                     },
-                    child: Text('Iniciar Sesion',
+                    child: Text('Imagenes Guia de la rutina',
                         style: TextStyle(
                             fontSize: 25.0,
                             color: Color.fromARGB(255, 0, 0, 0),
                             backgroundColor: Color.fromARGB(255, 104, 195, 1),
                             fontFamily: 'Dangrek-Regular'))),
               ),
+
               SizedBox(
                 child: TextButton(
 
                     // aqui se hace la funiconalidad del boton
                     onPressed: () {
-                      print(
-                          'cuando se implementa enviara el usuario al formulario para registrarse');
                       final route = MaterialPageRoute(
-                        builder: (context) => SignUp(),
+                        builder: (context) => Menu(),
                       );
                       Navigator.push(context, route);
                     },
-                    child: Text('Registrarse',
+                    child: Text('volver al menu',
                         style: TextStyle(
-                            fontSize: 15.0,
+                            fontSize: 25.0,
                             color: Color.fromARGB(255, 0, 0, 0),
                             backgroundColor: Color.fromARGB(255, 255, 255, 255),
                             fontFamily: 'Dangrek-Regular'))),
