@@ -1,22 +1,28 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:salufit/src/Perfil.dart';
 import 'package:salufit/src/Rutinas1.dart';
 import 'package:salufit/src/Rutinas2.dart';
+import 'package:salufit/src/login.dart';
+import 'package:salufit/src/models/usuario.dart';
 import 'package:salufit/src/sign_up.dart';
 import 'package:salufit/src/Recetas1.dart';
 import 'package:salufit/src/Recetas2.dart';
 
 class Menu extends StatefulWidget {
-  const Menu({super.key});
-
+  const Menu({super.key, required this.usuario});
+  final Usuario usuario;
   @override
-  State<Menu> createState() => _MenuState();
+  State<Menu> createState() => _MenuState(usuario: this.usuario);
 }
 
 class _MenuState extends State<Menu> {
-  @override
+  final Usuario usuario;
+  _MenuState({required this.usuario});
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 232, 232, 232),
@@ -47,10 +53,18 @@ class _MenuState extends State<Menu> {
                     // aqui se hace la funiconalidad del boton
                     //#Todo logica para seleccionar que rutina desplegar segun el IMC
                     onPressed: () {
-                       final route = MaterialPageRoute(
-                        builder: (context) => Rutinas2(),
-                      );
-                      Navigator.push(context, route);
+                      var IMC = usuario.peso / pow(usuario.altura, 2);
+                      if (IMC < 24.9 && IMC > 0) {
+                        final route = MaterialPageRoute(
+                          builder: (context) => Rutinas2(usuario: usuario),
+                        );
+                        Navigator.push(context, route);
+                      } else if (IMC > 25.0) {
+                        final route = MaterialPageRoute(
+                          builder: (context) => Rutinas1(usuario: usuario),
+                        );
+                        Navigator.push(context, route);
+                      }
                     },
                     child: Text('Rutinas de ejercicios',
                         style: TextStyle(
@@ -65,10 +79,18 @@ class _MenuState extends State<Menu> {
                     // aqui se hace la funiconalidad del boton
                     //#Todo logica para seleccionar que receta desplegar segun el IMC
                     onPressed: () {
-                      final route = MaterialPageRoute(
-                        builder: (context) => Recetas2(),
-                      );
-                      Navigator.push(context, route);
+                      var IMC = usuario.peso / pow(usuario.altura, 2);
+                      if (IMC < 24.9 && IMC > 0) {
+                        final route = MaterialPageRoute(
+                          builder: (context) => Recetas2(usuario: usuario),
+                        );
+                        Navigator.push(context, route);
+                      } else if (IMC > 25.0) {
+                        final route = MaterialPageRoute(
+                          builder: (context) => Recetas1(usuario: usuario),
+                        );
+                        Navigator.push(context, route);
+                      }
                     },
                     child: Text('Recetas',
                         style: TextStyle(
@@ -77,12 +99,14 @@ class _MenuState extends State<Menu> {
                             backgroundColor: Color.fromARGB(255, 104, 195, 1),
                             fontFamily: 'Dangrek-Regular'))),
               ),
-             SizedBox(
+              SizedBox(
                 child: TextButton(
 
                     // aqui se hace la funiconalidad del boton
                     onPressed: () {
-                      
+                      final route = MaterialPageRoute(
+                          builder: (context) => Perfil(usuario: usuario));
+                      Navigator.push(context, route);
                     },
                     child: Text('Mi perfil',
                         style: TextStyle(
@@ -91,8 +115,22 @@ class _MenuState extends State<Menu> {
                             backgroundColor: Color.fromARGB(255, 104, 195, 1),
                             fontFamily: 'Dangrek-Regular'))),
               ),
-             
-             
+              SizedBox(
+                child: TextButton(
+
+                    // aqui se hace la funiconalidad del boton
+                    onPressed: () {
+                      final route =
+                          MaterialPageRoute(builder: (context) => Mylogin());
+                      Navigator.push(context, route);
+                    },
+                    child: Text('Cerrar Sesion',
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            backgroundColor: Color.fromARGB(255, 104, 195, 1),
+                            fontFamily: 'Dangrek-Regular'))),
+              ),
             ],
           )
         ],

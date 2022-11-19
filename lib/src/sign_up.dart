@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:salufit/src/login.dart';
+import 'package:salufit/src/models/db.dart';
+import 'package:salufit/src/models/usuario.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -11,6 +14,45 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final nombreController = TextEditingController();
+  final apellidoController = TextEditingController();
+  final telefonoController = TextEditingController();
+  final correoController = TextEditingController();
+  final estaturaController = TextEditingController();
+  final pesoController = TextEditingController();
+  final claveController = TextEditingController();
+
+  String _errorMessage = '';
+
+  void validateEmail(String val) {
+    if (val.isEmpty ||
+        nombreController.text.isEmpty ||
+        apellidoController.text.isEmpty ||
+        telefonoController.text.isEmpty ||
+        estaturaController.text.isEmpty ||
+        pesoController.text.isEmpty) {
+      setState(() {
+        _errorMessage = "Faltan algunos campos por rellenar";
+      });
+    } else if (!EmailValidator.validate(val, true)) {
+      setState(() {
+        _errorMessage = "El correo electronico es invalido";
+      });
+    } else {
+      setState(() {
+        _errorMessage = "";
+      });
+      DB.insert(Usuario(
+          nombre: nombreController.text,
+          apellido: apellidoController.text,
+          correo: correoController.text,
+          telefono: telefonoController.text,
+          altura: double.parse(estaturaController.text),
+          peso: double.parse(pesoController.text),
+          clave: claveController.text));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +77,7 @@ class _SignUpState extends State<SignUp> {
               ),
               TextField(
                   enableInteractiveSelection: false,
+                  controller: nombreController,
                   autofocus: true,
                   decoration: InputDecoration(
                     hintText: 'Nombre',
@@ -49,6 +92,7 @@ class _SignUpState extends State<SignUp> {
               ),
               TextField(
                   enableInteractiveSelection: false,
+                  controller: apellidoController,
                   autofocus: true,
                   decoration: InputDecoration(
                     hintText: 'Apellido',
@@ -63,6 +107,7 @@ class _SignUpState extends State<SignUp> {
               ),
               TextField(
                   enableInteractiveSelection: false,
+                  controller: telefonoController,
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -78,6 +123,7 @@ class _SignUpState extends State<SignUp> {
               ),
               TextField(
                   enableInteractiveSelection: false,
+                  controller: correoController,
                   autofocus: true,
                   decoration: InputDecoration(
                     hintText: 'Correo Electronico',
@@ -92,6 +138,22 @@ class _SignUpState extends State<SignUp> {
               ),
               TextField(
                   enableInteractiveSelection: false,
+                  controller: claveController,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    hintText: 'Contraseña',
+                    labelText: 'Contraseña',
+                    suffixIcon: Icon(Icons.account_circle),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0)),
+                  ),
+                  onSubmitted: (valor) {}),
+              Divider(
+                height: 15.0,
+              ),
+              TextField(
+                  enableInteractiveSelection: false,
+                  controller: estaturaController,
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -107,6 +169,7 @@ class _SignUpState extends State<SignUp> {
               ),
               TextField(
                   enableInteractiveSelection: false,
+                  controller: pesoController,
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -125,7 +188,7 @@ class _SignUpState extends State<SignUp> {
 
                     // aqui se hace la funiconalidad del boton
                     onPressed: () {
-                      print('El usuario es  y la contraseña es ');
+                      validateEmail(correoController.text);
                     },
                     child: Text('Registrarse',
                         style: TextStyle(
@@ -139,8 +202,6 @@ class _SignUpState extends State<SignUp> {
 
                     // aqui se hace la funiconalidad del boton
                     onPressed: () {
-                      print(
-                          'cuando se implementa enviara el usuario al formulario para registrarse');
                       final route =
                           MaterialPageRoute(builder: (context) => Mylogin());
                       Navigator.push(context, route);

@@ -5,17 +5,21 @@ import 'package:salufit/src/imagenesrutina1.dart';
 import 'package:salufit/src/imagenesrutina2.dart';
 import 'package:salufit/src/menu.dart';
 import 'package:salufit/src/login.dart';
+import 'package:salufit/src/models/usuario.dart';
 
 class Rutinas2 extends StatefulWidget {
-  const Rutinas2({super.key});
+  final Usuario usuario;
+  const Rutinas2({super.key, required this.usuario});
 
   @override
-  State<Rutinas2> createState() => _Rutinas2State();
+  State<Rutinas2> createState() => _Rutinas2State(usuario: usuario);
 }
 
 class _Rutinas2State extends State<Rutinas2> {
-  @override
+  final Usuario usuario;
+  _Rutinas2State({required this.usuario});
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 232, 232, 232),
@@ -40,17 +44,17 @@ class _Rutinas2State extends State<Rutinas2> {
               Divider(
                 height: 15.0,
               ),
-             Text(
+              Text(
                 '-Flexiones 10 repeticiones \n -Sentadillas 30 repeticiones \n -Estiramiento de abdominales 30 segundos \n -Escaladores 10 repeticiones  ',
                 style: TextStyle(
                     fontFamily: 'Dangrek-Regular',
                     fontSize: 18.0,
                     color: Color.fromARGB(221, 0, 0, 0)),
               ),
-                   Divider(
+              Divider(
                 height: 15.0,
               ),
-             Text(
+              Text(
                 'Recomendaciones \n -Es recomendable hacer entre 3 a 4 sets de repeticiones de toda la rutina \n - Se recomienda tomar intervalos de 30 segundos a 1 minuto de descanso \n -Todos la rutina de ejercicios se puede realizar en casa \n -En caso de no poder realizar algun ejercicio completo intente realizar el ejercicios al fallo \n-Si tienes dudas sobre como realizar algun ejercicio pulsa el siguiente boton',
                 style: TextStyle(
                     fontFamily: 'Dangrek-Regular',
@@ -62,9 +66,8 @@ class _Rutinas2State extends State<Rutinas2> {
 
                     // aqui se hace la funiconalidad del boton
                     onPressed: () {
-
                       final route = MaterialPageRoute(
-                        builder: (context) => Imagenes2(),
+                        builder: (context) => Imagenes2(usuario: usuario),
                       );
                       Navigator.push(context, route);
                     },
@@ -75,14 +78,13 @@ class _Rutinas2State extends State<Rutinas2> {
                             backgroundColor: Color.fromARGB(255, 104, 195, 1),
                             fontFamily: 'Dangrek-Regular'))),
               ),
-
               SizedBox(
                 child: TextButton(
 
                     // aqui se hace la funiconalidad del boton
                     onPressed: () {
                       final route = MaterialPageRoute(
-                        builder: (context) => Menu(),
+                        builder: (context) => Menu(usuario: this.usuario),
                       );
                       Navigator.push(context, route);
                     },

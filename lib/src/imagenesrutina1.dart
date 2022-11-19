@@ -2,18 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:salufit/src/Rutinas1.dart';
-
+import 'package:salufit/src/models/usuario.dart';
 
 class Imagenes1 extends StatefulWidget {
-  const Imagenes1({super.key});
+  final Usuario usuario;
+  const Imagenes1({super.key, required this.usuario});
 
   @override
-  State<Imagenes1> createState() => _Imagenes1State();
+  State<Imagenes1> createState() => _Imagenes1State(usuario: usuario);
 }
 
 class _Imagenes1State extends State<Imagenes1> {
-  @override
+  final Usuario usuario;
+  _Imagenes1State({required this.usuario});
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 232, 232, 232),
@@ -23,7 +26,6 @@ class _Imagenes1State extends State<Imagenes1> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              
               Text(
                 'Tijeras 30 reps',
                 style: TextStyle(
@@ -31,9 +33,7 @@ class _Imagenes1State extends State<Imagenes1> {
                     fontSize: 30.0,
                     color: Color.fromARGB(221, 0, 0, 0)),
               ),
-             Image(image: AssetImage('images/tijeras.jpg')
-
-              ),
+              Image(image: AssetImage('images/tijeras.jpg')),
               Divider(
                 height: 15.0,
                 thickness: 2.0,
@@ -46,9 +46,7 @@ class _Imagenes1State extends State<Imagenes1> {
                     fontSize: 30.0,
                     color: Color.fromARGB(221, 0, 0, 0)),
               ),
-             Image(image: AssetImage('images/plancha.png')
-              
-              ),
+              Image(image: AssetImage('images/plancha.png')),
               Divider(
                 height: 15.0,
                 thickness: 2.0,
@@ -61,10 +59,7 @@ class _Imagenes1State extends State<Imagenes1> {
                     fontSize: 30.0,
                     color: Color.fromARGB(221, 0, 0, 0)),
               ),
-             Image(image: AssetImage('images/Zancada.jpg')
-              
-              ),
-
+              Image(image: AssetImage('images/Zancada.jpg')),
               Divider(
                 height: 15.0,
                 thickness: 2.0,
@@ -77,22 +72,19 @@ class _Imagenes1State extends State<Imagenes1> {
                     fontSize: 30.0,
                     color: Color.fromARGB(221, 0, 0, 0)),
               ),
-             Image(image: AssetImage('images/Rodillas.png')
-              
-              ),
-               Divider(
+              Image(image: AssetImage('images/Rodillas.png')),
+              Divider(
                 height: 20.0,
                 thickness: 2.0,
                 color: Color.fromARGB(221, 0, 0, 0),
               ),
-                SizedBox(
+              SizedBox(
                 child: TextButton(
 
                     // aqui se hace la funiconalidad del boton
                     onPressed: () {
-
                       final route = MaterialPageRoute(
-                        builder: (context) => Rutinas1(),
+                        builder: (context) => Rutinas1(usuario: usuario),
                       );
                       Navigator.push(context, route);
                     },
